@@ -1,0 +1,33 @@
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+form {
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#message {
+    margin: 20px;
+    color: red;
+}
+
+.hidden {
+    display: none;
+}

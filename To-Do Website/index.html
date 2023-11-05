@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        #app {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        #task-input {
+            width: 100%;
+            padding: 10px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ccc;
+            margin: 5px 0;
+            padding: 10px;
+        }
+        .completed {
+            text-decoration: line-through;
+        }
+        .actions {
+            display: flex;
+        }
+        .actions button {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>To-Do App</h1>
+        <input type="text" id="task-input" placeholder="Add a new task">
+        <button onclick="addTask()">Add Task</button>
+        <div>
+            <h2>Pending Tasks</h2>
+            <ul id="pending-tasks">
+            </ul>
+        </div>
+        <div>
+            <h2>Completed Tasks</h2>
+            <ul id="completed-tasks">
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function addTask() {
+            const taskInput = document.getElementById("task-input");
+            const taskText = taskInput.value.trim();
+            if (taskText === "") {
+                alert("Please enter a task.");
+                return;
+            }
+
+            const task = document.createElement("li");
+            task.innerHTML = `
+                <span>${taskText}</span>
+                <div class="actions">
+                    <button onclick="markComplete(this)">Complete</button>
+                    <button onclick="editTask(this)">Edit</button>
+                    <button onclick="deleteTask(this)">Delete</button>
+                </div>
+            `;
+
+            document.getElementById("pending-tasks").appendChild(task);
+            taskInput.value = "";
+        }
+
+        function markComplete(button) {
+            const task = button.parentElement.parentElement;
+            task.classList.toggle("completed");
+            const parentList = task.parentElement.id;
+            if (parentList === "pending-tasks") {
+                document.getElementById("completed-tasks").appendChild(task);
+            } else {
+                document.getElementById("pending-tasks").appendChild(task);
+            }
+        }
+
+        function editTask(button) {
+            const task = button.parentElement.parentElement;
+            const taskText = task.querySelector("span").innerText;
+            const newTaskText = prompt("Edit task:", taskText);
+            if (newTaskText !== null) {
+                task.querySelector("span").innerText = newTaskText;
+            }
+        }
+
+        function deleteTask(button) {
+            const task = button.parentElement.parentElement;
+            task.remove();
+        }
+    </script>
+</body>
+</html>
